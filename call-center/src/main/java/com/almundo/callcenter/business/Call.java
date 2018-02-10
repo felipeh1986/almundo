@@ -4,6 +4,8 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
+import com.almundo.callcenter.dto.Employee;
+
 /**
  * The Class Call is a Runnable that simulates any call.
  */
@@ -23,6 +25,8 @@ public class Call implements Runnable {
 
 	/** The duration. */
 	private Integer duration;
+	
+	private Employee employee;
 
 	/**
 	 * Instantiates a new call.
@@ -40,12 +44,19 @@ public class Call implements Runnable {
 	@Override
 	public void run() {
 		try {
-			LOGGER.info(String.format("Call for %s has been started", this.number));
+			LOGGER.info(String.format("Call for %s has been started by %s %s", 
+					this.number, 
+					this.employee.getType(),
+					this.employee.getName()));
+			
 			Thread.sleep(duration);
 		} catch (InterruptedException e) {
-			LOGGER.warn(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
-		LOGGER.info(String.format("Call for %s has finished in %s seconds", this.number, this.duration));
+		LOGGER.info(String.format("Call for %s has finished in %s seconds by %s", 
+				this.number, 
+				this.duration,
+				this.employee.getName()));
 
 	}
 
@@ -83,6 +94,24 @@ public class Call implements Runnable {
 	 */
 	public void setDuration(Integer duration) {
 		this.duration = duration;
+	}
+	
+	/**
+	 * Gets the employee.
+	 *
+	 * @return the employee
+	 */
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	/**
+	 * Sets the employee.
+	 *
+	 * @param employee the new employee
+	 */
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	/**

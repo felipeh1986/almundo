@@ -1,9 +1,9 @@
 package com.almundo.callcenter.utils;
 
 /**
- * The Enumeration EmployeeTypeEnum defines the employee´s type.
+ * The Enumeration EmployeeTypeEnum defines the employeeï¿½s type.
  */
 public enum EmployeeTypeEnum {
 
-	DIRECTOR, SUPERVISOR, OPERTATOR;
+	DIRECTOR, SUPERVISOR, OPERADOR;
 }
