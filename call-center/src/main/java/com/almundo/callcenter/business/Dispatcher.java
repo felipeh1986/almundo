@@ -45,6 +45,8 @@ public class Dispatcher {
 	/** The blocking queue. */
 	private BlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<Runnable>(10);
 	
+	private EmployeesCache employeesCache;
+	
 	private List<Employee> employees;
 	
 	/**
@@ -57,7 +59,8 @@ public class Dispatcher {
 	@PostConstruct
 	public void setup() {
 		employees = employeeRepository.allEmployees();
-		executor = new CallCenterThreadPoolExecutor(POOL_SIZE, POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, blockingQueue, employees);
+		employeesCache = EmployeesCache.getInstance(employees);
+		executor = new CallCenterThreadPoolExecutor(POOL_SIZE, POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, blockingQueue, employeesCache);
 	}
 	
 	/**
@@ -69,13 +72,16 @@ public class Dispatcher {
 	 */
 	public String dispatchCall(final String phoneNumber, int attemp) {
 		String result = null;
+		Employee emp = employeesCache.getEmployeeAvailable();
 		
 		try {
-			if(executor.getEmployees().isEmpty()) {
+			
+			if(emp == null) {
 				throw new RejectedExecutionException();
 			}
 			
 			final Call call = new Call(phoneNumber);
+			call.setEmployee(emp);
 			executor.execute(call);
 		} catch(RejectedExecutionException e) {
 			if(attemp <= RETRY_NUMBER) {

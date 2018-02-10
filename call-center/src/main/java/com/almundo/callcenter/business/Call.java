@@ -20,12 +20,13 @@ public class Call implements Runnable {
 	/** The Constant MAX_TIME. */
 	public static final Integer MAX_TIME = 10000;
 
-	/** The number. */
+	/** The number that makes call. */
 	private String number;
 
-	/** The duration. */
+	/** The call duration in milliseconds. */
 	private Integer duration;
 	
+	/** The employee that response call. */
 	private Employee employee;
 
 	/**

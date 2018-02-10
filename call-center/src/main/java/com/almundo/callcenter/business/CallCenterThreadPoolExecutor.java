@@ -1,88 +1,47 @@
 package com.almundo.callcenter.business;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.almundo.callcenter.dto.Employee;
-import com.almundo.callcenter.utils.EmployeeTypeEnum;
-
+/**
+ * The Class CallCenterThreadPoolExecutor is a custom thread pool executor.
+ */
 public class CallCenterThreadPoolExecutor extends ThreadPoolExecutor {
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger.getLogger(CallCenterThreadPoolExecutor.class);
 	
-	private List<Employee> employees;
+	/** The employee cache singleton. */
+	private EmployeesCache employeeCache;
 	
+	/**
+	 * Instantiates a new call center thread pool executor.
+	 *
+	 * @param corePoolSize the core pool size
+	 * @param maximumPoolSize the maximum pool size
+	 * @param keepAliveTime the keep alive time
+	 * @param unit the unit
+	 * @param workQueue the work queue
+	 * @param employeeCache the employee cache
+	 */
 	public CallCenterThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
-			BlockingQueue<Runnable> workQueue, List<Employee> employees) {
+			BlockingQueue<Runnable> workQueue, EmployeesCache employeeCache) {
 		super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
-		this.employees = Collections.synchronizedList(employees);
+		this.employeeCache = employeeCache;
 		LOGGER.info("CallCenterThreadPoolExecutor has been instanced");
 	}
 	
-	@Override
-    protected void beforeExecute(Thread t, Runnable r) {
-		super.beforeExecute(t, r);
-		
-		if(employees.isEmpty()) {
-			try {
-				Thread.sleep(5000);
-				getQueue().add(r);
-			} catch (InterruptedException e) {
-				LOGGER.error(e.getMessage());
-			}
-			throw new RejectedExecutionException("No available operators");
-		}
-		
-		Call call = (Call) r;
-        call.setEmployee(assignEmployeeToCall());
-        employees.remove(call.getEmployee());	
-    }
- 
+    /* (non-Javadoc)
+     * @see java.util.concurrent.ThreadPoolExecutor#afterExecute(java.lang.Runnable, java.lang.Throwable)
+     */
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
         super.afterExecute(r, t);
         Call call = (Call) r;
-        employees.add(call.getEmployee());
+        employeeCache.freeEmployee(call.getEmployee());
     }
-
-	/**
-	 * Gets the employees.
-	 *
-	 * @return the employees
-	 */
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-
-	/**
-	 * Sets the employees.
-	 *
-	 * @param employees the new employees
-	 */
-	public void setEmployees(final List<Employee> employees) {
-		this.employees = employees;
-	}
-    
-	private synchronized Employee assignEmployeeToCall() {
-		
-		Employee employ = employees.parallelStream().filter(e -> e.getType().equals(EmployeeTypeEnum.OPERADOR.name())).findFirst().orElse(null);
-		
-		if(employ == null) {
-			employ = employees.parallelStream().filter(e -> e.getType().equals(EmployeeTypeEnum.SUPERVISOR.name())).findFirst().orElse(null);
-		}
-		
-		if(employ == null) {
-			employ = employees.parallelStream().filter(e -> e.getType().equals(EmployeeTypeEnum.DIRECTOR.name())).findFirst().orElse(null);
-		}
-		
-		return employ;
-		
-	}
 
 }
