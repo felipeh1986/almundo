@@ -24,6 +24,7 @@ También se puede iniciar como una aplicación java corriendo la clase principal
 
 >Los comandos de este ejemplo son realizado en Windows
 
+<<<<<<< HEAD
 Las URL de lo servicios son las siguientes:
 
 Servicio para lanzar una llamada:
@@ -55,3 +56,23 @@ La aplicación es son microservicios realizados con SpringBoot en la versión 1.
 > **Nota:**
 
 > En esta aplicación se ha utilizado una base de datos embebida H2 y la cual es cargada con algunos empleados al momento de iniciar la aplicación.
+=======
+
+Documentación
+-------------
+
+El diseño de la aplicación se encuentra en el archivo llamado "diseno.eap" el cual es un proyecto realizado en Enterprise Architech.
+Si no dispone del programa mencionado anteriormente puede observar el diseño en el archivo "Diseño Call Center" ubicado en la directorio "documentation" de este repositorio.
+
+Artefactos de prueba
+-------------
+Como artefacto de prueba se ha puesto a su disposición un proyecto elaborado con SOAP-UI que permite consumir los servicios Rest expuestos con sus respectivos datos de prueba.
+
+Tecnologías implementadas
+-------------
+La aplicación es son microservicios realizados con SpringBoot en la versión 1.5.3 con Java 8 y JPA (Java Persistence API) en la capa de acceso a datos.
+
+> **Nota:**
+
+> En esta aplicación se ha utilizado una base de datos embebida H2 y la cual es cargada con algunos empleados al momento de iniciar la aplicación.
+>>>>>>> refs/remotes/origin/master
