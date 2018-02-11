@@ -24,16 +24,29 @@ También se puede iniciar como una aplicación java corriendo la clase principal
 
 >Los comandos de este ejemplo son realizado en Windows
 
+Las URL de lo servicios son las siguientes:
+
+Servicio para lanzar una llamada:
+
+>- http:localhost:900/almundo/callcenter/{phoneNumber}
+
+Servicio para crear un empleado:
+
+>- http:localhost:900//almundo/callcenter/createEmployee
+
+Servicio para obtener la lista de empleados persistidos en base de datos:
+
+>- http:localhost:900//almundo/callcenter/getEmployees
 
 Documentación
 -------------
 
-El diseño de la aplicación se encuentra en el archivo llamado "diseno.eap" el cual es un proyecto realizado en Enterprise Architech.
+El diseño de la aplicación se encuentra en el archivo llamado "Almundo Call Center.eap" el cual es un proyecto realizado en Enterprise Architech.
 Si no dispone del programa mencionado anteriormente puede observar el diseño en el archivo "Diseño Call Center" ubicado en la directorio "documentation" de este repositorio.
 
 Artefactos de prueba
 -------------
-Como artefacto de prueba se ha puesto a su disposición un proyecto elaborado con SOAP-UI que permite consumir los servicios Rest expuestos con sus respectivos datos de prueba.
+Como artefacto de prueba se ha puesto a su disposición un proyecto elaborado con SOAP-UI llamado "AlmundoCallCenter-soapui-project.xml" que permite consumir los servicios Rest expuestos con sus respectivos datos de prueba.
 
 Tecnologías implementadas
 -------------
