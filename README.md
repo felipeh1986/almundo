@@ -24,7 +24,6 @@ También se puede iniciar como una aplicación java corriendo la clase principal
 
 >Los comandos de este ejemplo son realizado en Windows
 
-<<<<<<< HEAD
 Las URL de lo servicios son las siguientes:
 
 Servicio para lanzar una llamada:
@@ -75,4 +74,4 @@ La aplicación es son microservicios realizados con SpringBoot en la versión 1.
 > **Nota:**
 
 > En esta aplicación se ha utilizado una base de datos embebida H2 y la cual es cargada con algunos empleados al momento de iniciar la aplicación.
->>>>>>> refs/remotes/origin/master
+
