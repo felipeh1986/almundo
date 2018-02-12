@@ -50,7 +50,7 @@ Como artefacto de prueba se ha puesto a su disposición un proyecto elaborado co
 
 Tecnologías implementadas
 -------------
-La aplicación es son microservicios realizados con SpringBoot en la versión 1.5.3 con Java 8 y JPA (Java Persistence API) en la capa de acceso a datos.
+La aplicación esta basada en microservicios realizados con SpringBoot en la versión 1.5.3 con Java 8 y JPA (Java Persistence API) en la capa de acceso a datos.
 
 > **Nota:**
 
