@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.almundo.callcenter.dto.Employee;
 import com.almundo.callcenter.jpa.EmployeeRepository;
@@ -35,7 +35,7 @@ public class DispatcherTest {
 	public void setup() {
 		final List<Employee> employees = DataProviderTest.buildEmployees();
 		EmployeesCache.getInstance(employees);
-		when(employeeRepository.allEmployees()).thenReturn(employees);
+		//when(employeeRepository.allEmployees()).thenReturn(employees);
 		when(employeesCache.getEmployeeAvailable()).thenReturn(employees.get(0));
 	}
 	
